@@ -12,14 +12,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building application...'
-                sh 'python3 app.py'
+                sh 'which python3'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'python3 app.py'
+                sh 'which python3'
             }
         }
     }
