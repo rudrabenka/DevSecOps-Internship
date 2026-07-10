@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh  'pip install --break-system-packages -r requirements.txt'
+                sh  'python3 -m pytest --maxfail=1 --disable-warnings -q'
             }
         }
         stage('Test') {
