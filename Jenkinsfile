@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'python:3.10' }
+    }
 
     stages {
         stage('Checkout') {
@@ -12,17 +14,18 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building application...'
-                sh 'which python3'
+                sh 'pip install -r requirements.txt'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'which python3'
+                sh 'pytest --maxfail=1 --disable-warnings -q'
             }
         }
     }
 }
+
 
           
