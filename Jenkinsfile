@@ -1,24 +1,18 @@
 pipeline {
     agent any
+
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Build') {
             steps {
-                sh  'python3 -m pytest --maxfail=1 --disable-warnings -q'
+                sh 'pip install --break-system-packages -r requirements.txt'
             }
         }
         stage('Test') {
             steps {
-                sh 'pytest --maxfail=1 --disable-warnings -q'
+                sh 'python3 -m pytest --maxfail=1 --disable-warnings -q'
             }
         }
     }
 }
-
-                
 
           
