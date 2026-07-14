@@ -1,4 +1,4 @@
-# DevSecOps Internship - Day 1
+# DevSecOps 
 
 ## Environment Setup
 
