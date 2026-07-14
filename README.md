@@ -51,4 +51,30 @@ To automate build and test stages using Jenkins and GitHub integration.
 ## Outcome
 The CI pipeline is fully functional and integrated with GitHub.
 
-Day 1 Completed Successfully.
+Day 2 Completed Successfully.
+
+
+
+
+## Day-3: Docker Setup
+
+### Steps Executed
+1. Created optimized multi-stage Dockerfile with comments explaining each instruction.
+   ```bash
+   docker build -t myapp:1.0 .
+docker run -p 5000:8080 myapp:1.0
+ 
+docker ps
+Documented Dockerfile instructions and container run in README
+
+.
+### Day‑4 SonarQube Analysis
+- **Before Fixes:** 2 Bugs, 1 Vulnerability, 3 Code Smells
+- **After Fixes:** 0 Bugs, 0 Vulnerabilities, 0 Code Smells
+- **Resolved Issues:**
+  - Removed hardcoded password
+  - Fixed SQL injection risk (used parameterized query)
+  - Added zero‑division check
+  - Validated `None` values before access
+  - Removed duplicate code
+- **Quality Gate:** Passed ✅
