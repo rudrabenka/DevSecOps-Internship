@@ -2,17 +2,41 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'pip install --break-system-packages -r requirements.txt'
+                git branch: 'main', url: 'https://github.com/your-repo/DevSecOps-Internship.git'
             }
         }
-        stage('Test') {
+
+        stage('Build') {
             steps {
-                sh 'python3 -m pytest --maxfail=1 --disable-warnings -q'
+                sh 'python3 -m py_compile app.py'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
+            steps {
+                withSonarQubeEnv('Sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=myapp \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9000"
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
 }
+
 
           
