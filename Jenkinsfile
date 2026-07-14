@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-repo/DevSecOps-Internship.git'
+                git branch: 'main', url: 'https://github.com/rudrabenka/DevSecOps-Internship.git'
             }
         }
 
@@ -23,7 +23,8 @@ pipeline {
                     sh "${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=myapp \
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9000"
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=${SONARQUBE_TOKEN}"
                 }
             }
         }
@@ -38,5 +39,3 @@ pipeline {
     }
 }
 
-
-          
