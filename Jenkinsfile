@@ -19,7 +19,7 @@ pipeline {
                 scannerHome = tool 'SonarQube Scanner'   // must match Jenkins → Tools name
             }
             steps {
-                withSonarQubeEnv('Sonarqube') {           // must match Jenkins → Configure System server name
+                withSonarQubeEnv('SonarQube') {           // must match Jenkins → Configure System server name
                     sh "${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=myapp \
                         -Dsonar.sources=. \
@@ -38,6 +38,7 @@ pipeline {
         }
     }
 }
+
 
 
 
