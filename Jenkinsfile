@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    tools {
-        sonarScanner 'SonarScanner-8.1.0'
-    }
+   
 
     stages {
         stage('Checkout') {
