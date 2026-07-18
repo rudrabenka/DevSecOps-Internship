@@ -10,17 +10,13 @@ pipeline {
 
         stage('Setup Python Env') {
             steps {
-                sh '''
-                    python3 -m pip install --break-system-packages -r requirements.txt
-                '''
+                sh 'python3 -m pip install --break-system-packages -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh '''
-                    pytest test_app.py --maxfail=1 --disable-warnings -q
-                '''
+                sh 'python3 -m pytest test_app.py --maxfail=1 --disable-warnings -q'
             }
         }
 
@@ -37,8 +33,17 @@ pipeline {
                 }
             }
         }
+
+        stage('SonarQube Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
     }
 }
+
 
 
 
