@@ -1,12 +1,26 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven-3.9.16'
-    }
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'mvn clean install'
+                checkout scm
+            }
+        }
+
+        stage('Setup Python Env') {
+            steps {
+                sh '''
+                    python3 -m pip install --break-system-packages -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh '''
+                    pytest test_app.py --maxfail=1 --disable-warnings -q
+                '''
             }
         }
 
@@ -25,6 +39,7 @@ pipeline {
         }
     }
 }
+
 
 
 
