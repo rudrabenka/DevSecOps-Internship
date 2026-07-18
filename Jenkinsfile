@@ -1,6 +1,5 @@
 pipeline {
     agent any
-   
 
     stages {
         stage('Checkout') {
@@ -24,13 +23,17 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                    sh '''
-                        sonar-scanner \
-                          -Dsonar.projectKey=DevSecOps-Internship \
-                          -Dsonar.sources=. \
-                          -Dsonar.host.url=http://localhost:9000 \
-                          -Dsonar.login=$SONAR_TOKEN
-                    '''
+                    script {
+                        // Use the SonarScanner tool configured in Jenkins
+                        def scannerHome = tool 'SonarScanner-8.1.0'
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                              -Dsonar.projectKey=DevSecOps-Internship \
+                              -Dsonar.sources=. \
+                              -Dsonar.host.url=http://localhost:9000 \
+                              -Dsonar.login=$SONAR_TOKEN
+                        """
+                    }
                 }
             }
         }
@@ -44,6 +47,7 @@ pipeline {
         }
     }
 }
+
 
 
 
