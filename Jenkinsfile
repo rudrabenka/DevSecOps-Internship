@@ -24,8 +24,8 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                     script {
-                        // Use the SonarScanner tool configured in Jenkins
-                        def scannerHome = tool 'SonarScanner-8.1.0'
+                        // Use the exact tool name from Jenkins Global Tool Configuration
+                        def scannerHome = tool 'SonarQube Scanner 8.1.0.6389'
                         sh """
                             ${scannerHome}/bin/sonar-scanner \
                               -Dsonar.projectKey=DevSecOps-Internship \
@@ -47,6 +47,7 @@ pipeline {
         }
     }
 }
+
 
 
 
